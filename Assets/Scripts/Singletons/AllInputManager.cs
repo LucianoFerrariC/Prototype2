@@ -45,11 +45,13 @@ public class AllInputManager : MonoBehaviour
     }
     public void IsometricToFirstPersonView()
     {
+        Cursor.lockState = CursorLockMode.Locked;
         actions.IsometricView.Disable();
         actions.FirstPersonView.Enable();
     }
     public void FirstPersonToIsometricView()
     {
+        Cursor.lockState = CursorLockMode.None;
         actions.FirstPersonView.Disable();
         actions.IsometricView.Enable();
     }

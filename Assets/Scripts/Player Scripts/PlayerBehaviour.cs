@@ -1,3 +1,4 @@
+using Cinemachine;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -5,7 +6,8 @@ public class PlayerBehaviour : MonoBehaviour
 {
     [SerializeField] float playerSpeed = 5f;
     [SerializeField] float turnSpeed = 360f;
-    [SerializeField] private Animator animator;
+    [SerializeField] private CinemachineVirtualCamera isometricCam;
+    [SerializeField] private CinemachineVirtualCamera firstPersonCam;
     private CharacterController controller;
     public List<MeshRenderer> playerBody;
     private AllInputManager inputManager;
@@ -26,16 +28,24 @@ public class PlayerBehaviour : MonoBehaviour
         float switchInputFirstPerson = inputManager.FirstPersonSwitch();
         if (switchInputIsometric == 1)
         {
+            firstPersonCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.m_enabled = false;
+            firstPersonCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.m_enabled = false;
+
             inputManager.IsometricToFirstPersonView();
-            animator.Play("First-Person Cam");
+            isometricCam.Priority = 0;
+            firstPersonCam.Priority = 1;
             playerBody[0].enabled = false;
             playerBody[1].enabled = false;
             playerBody[2].enabled = false;
         }
         else if (switchInputFirstPerson == 1)
         {
+            firstPersonCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.m_enabled = true;
+            firstPersonCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.m_enabled = true;
+
             inputManager.FirstPersonToIsometricView();
-            animator.Play("Isometric Cam");
+            isometricCam.Priority = 1;
+            firstPersonCam.Priority = 0;
             playerBody[0].enabled = true;
             playerBody[1].enabled = true;
             playerBody[2].enabled = true;
