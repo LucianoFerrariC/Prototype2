@@ -43,6 +43,10 @@ public class AllInputManager : MonoBehaviour
     {
         return actions.FirstPersonView.SwitchView.ReadValue<float>();
     }
+    public float Shoot()
+    {
+        return actions.FirstPersonView.Shoot.ReadValue<float>();
+    }
     public void IsometricToFirstPersonView()
     {
         Cursor.lockState = CursorLockMode.Locked;

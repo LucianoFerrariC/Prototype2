@@ -1,4 +1,5 @@
 using Cinemachine;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,52 +9,55 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] float turnSpeed = 360f;
     [SerializeField] private CinemachineVirtualCamera isometricCam;
     [SerializeField] private CinemachineVirtualCamera firstPersonCam;
+    [SerializeField] private Animator animator;
+    [SerializeField] private Animator armAnimator;
+
     private CharacterController controller;
-    public List<MeshRenderer> playerBody;
-    private AllInputManager inputManager;
+    private AllInputManager allInputManager;
+
+    public static Action shootInput;
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        List<MeshRenderer> playerBody = new List<MeshRenderer>();
-        inputManager = AllInputManager.Instance;
+        animator = GetComponent<Animator>();
+        allInputManager = AllInputManager.Instance;
     }
     private void Update()
     {
         SwitchView();
         IsometricMovement();
+        FirstPersonShoot();
     }
     private void SwitchView()
     {
-        float switchInputIsometric = inputManager.IsometricSwitch();
-        float switchInputFirstPerson = inputManager.FirstPersonSwitch();
+        float switchInputIsometric = allInputManager.IsometricSwitch();
+        float switchInputFirstPerson = allInputManager.FirstPersonSwitch();
         if (switchInputIsometric == 1)
         {
             firstPersonCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.m_enabled = false;
             firstPersonCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.m_enabled = false;
 
-            inputManager.IsometricToFirstPersonView();
+            allInputManager.IsometricToFirstPersonView();
             isometricCam.Priority = 0;
             firstPersonCam.Priority = 1;
-            playerBody[0].enabled = false;
-            playerBody[1].enabled = false;
-            playerBody[2].enabled = false;
+            animator.Play("Fade Out");
+            armAnimator.Play("Fade In");
         }
         else if (switchInputFirstPerson == 1)
         {
             firstPersonCam.GetCinemachineComponent<CinemachinePOV>().m_HorizontalRecentering.m_enabled = true;
             firstPersonCam.GetCinemachineComponent<CinemachinePOV>().m_VerticalRecentering.m_enabled = true;
 
-            inputManager.FirstPersonToIsometricView();
+            allInputManager.FirstPersonToIsometricView();
             isometricCam.Priority = 1;
             firstPersonCam.Priority = 0;
-            playerBody[0].enabled = true;
-            playerBody[1].enabled = true;
-            playerBody[2].enabled = true;
+            animator.Play("Fade In");
+            armAnimator.Play("Fade Out");
         }
     }
-    void IsometricMovement()
+    private void IsometricMovement()
     {
-        Vector2 movement = inputManager.IsometricMovement();
+        Vector2 movement = allInputManager.IsometricMovement();
         Vector3 direction = new Vector3(movement.x, 0f, movement.y);
 
         if (direction != Vector3.zero)
@@ -67,5 +71,13 @@ public class PlayerBehaviour : MonoBehaviour
         }
         Vector3 move = ((transform.forward * direction.magnitude) * playerSpeed);
         controller.Move(move * Time.deltaTime);
+    }
+    private void FirstPersonShoot()
+    {
+        float shootKey = allInputManager.Shoot();
+        if (shootKey == 1)
+        {
+            shootInput?.Invoke();
+        }
     }
 }
