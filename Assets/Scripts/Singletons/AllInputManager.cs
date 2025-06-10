@@ -25,7 +25,8 @@ public class AllInputManager : MonoBehaviour
             _instance = this;
         }
         actions = new PlayerInputActions();
-        CheckStage();
+        //CheckStage();
+        actions.IsometricView.Enable();
     }
     public Vector2 IsometricMovement()
     {

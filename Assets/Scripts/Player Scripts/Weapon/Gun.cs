@@ -11,6 +11,8 @@ public class Gun : MonoBehaviour
     private void Start()
     {
         PlayerBehaviour.shootInput += Shoot;
+        weaponData.currentAmmo = weaponData.magSize;
+        weaponData.reloading = false;
     }
     private void Update()
     {
@@ -19,7 +21,6 @@ public class Gun : MonoBehaviour
     private bool CanShoot() => !weaponData.reloading && timeSinceLastShot > 1f / (weaponData.fireRate / 60f);
     public void Shoot()
     {
-
         if (weaponData.currentAmmo > 0)
         {
             if (CanShoot())
@@ -28,10 +29,11 @@ public class Gun : MonoBehaviour
                 {
                     Debug.Log(hitInfo.transform.name);
                 }
+
                 weaponData.currentAmmo--;
                 timeSinceLastShot = 0f;
-                StartCooldown();
                 OnGunShot();
+                StartCooldown();
             }
         }
     }

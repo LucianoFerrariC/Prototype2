@@ -5,10 +5,18 @@ using UnityEngine;
 
 public class PlayerBehaviour : MonoBehaviour
 {
-    [SerializeField] float playerSpeed = 5f;
-    [SerializeField] float turnSpeed = 360f;
+    [Header("Movement Variables")]
+    [SerializeField] private float playerSpeed = 5f;
+    [SerializeField] private float turnSpeed = 360f;
+    [SerializeField] private float gravity = -9.81f;
+    [SerializeField] private float gravityMultiplier = 3f;
+    [SerializeField] private float velocity;
+
+    [Header("Cameras")]
     [SerializeField] private CinemachineVirtualCamera isometricCam;
     [SerializeField] private CinemachineVirtualCamera firstPersonCam;
+
+    [Header("Animators")]
     [SerializeField] private Animator animator;
     [SerializeField] private Animator armAnimator;
 
@@ -70,6 +78,15 @@ public class PlayerBehaviour : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, turnSpeed * Time.deltaTime);
         }
         Vector3 move = ((transform.forward * direction.magnitude) * playerSpeed);
+        if (controller.isGrounded && velocity < 0f)
+        {
+            velocity = -1f;
+        }
+        else
+        {
+            velocity += gravity * gravityMultiplier * Time.deltaTime;
+            move.y = velocity;
+        }
         controller.Move(move * Time.deltaTime);
     }
     private void FirstPersonShoot()
