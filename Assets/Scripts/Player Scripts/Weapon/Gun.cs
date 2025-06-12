@@ -8,7 +8,9 @@ public class Gun : MonoBehaviour
     [SerializeField] private WeaponData weaponData;
     [SerializeField] private float timeSinceLastShot;
 
-    private void Start()
+    public static Action shootHit;
+
+    private void Awake()
     {
         PlayerBehaviour.shootInput += Shoot;
         weaponData.currentAmmo = weaponData.magSize;
@@ -25,21 +27,29 @@ public class Gun : MonoBehaviour
         {
             if (CanShoot())
             {
-                if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, weaponData.maxDistance))
+                if(this != null)
                 {
-                    Debug.Log(hitInfo.transform.name);
-                }
+                    if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, weaponData.maxDistance))
+                    {
+                        Debug.DrawLine(transform.position, transform.forward * hitInfo.distance, Color.yellow);
+                        Debug.Log(hitInfo.transform.name);
+                        EnemyAITutorial enemy = hitInfo.transform.GetComponent<EnemyAITutorial>();
+                        OnGunShot(enemy);
+                    }
 
-                weaponData.currentAmmo--;
-                timeSinceLastShot = 0f;
-                OnGunShot();
-                StartCooldown();
+                    weaponData.currentAmmo--;
+                    timeSinceLastShot = 0f;
+                    StartCooldown();
+                }
             }
         }
     }
-    private void OnGunShot()
+    private void OnGunShot(EnemyAITutorial enemy)
     {
-
+        if (enemy != null)
+        {
+            enemy.GetHit();
+        }
     }
     public void StartCooldown()
     {

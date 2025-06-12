@@ -1,7 +1,9 @@
 using Cinemachine;
 using System;
 using System.Collections.Generic;
+using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -96,5 +98,11 @@ public class PlayerBehaviour : MonoBehaviour
         {
             shootInput?.Invoke();
         }
+    }
+
+    public void Death()
+    {
+        int scene = SceneManager.GetActiveScene().buildIndex;
+        SceneManager.LoadScene(scene);
     }
 }

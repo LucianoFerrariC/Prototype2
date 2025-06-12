@@ -178,6 +178,8 @@ MonoBehaviour:
   speed: 4
   turnSpeed: 360
   lightDetection: {fileID: 5413859077426129957}
+  spotlight: {fileID: 505400164769126375}
+  detectionTrigger: {fileID: 3012393058709075454}
   droneFlying: {fileID: 8300000, guid: 64906cf7975730a4280ba484b99db3bb, type: 3}
 --- !u!82 &3373323510014834305
 AudioSource:
@@ -334,7 +336,7 @@ GameObject:
   - component: {fileID: 1754416123647804200}
   - component: {fileID: 3012393058709075454}
   - component: {fileID: 5413859077426129957}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Drone_DetectionTrigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

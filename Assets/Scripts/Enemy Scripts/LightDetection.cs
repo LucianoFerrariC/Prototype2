@@ -15,6 +15,7 @@ public class LightDetection : MonoBehaviour
         {
             playerDetected = true;
             Debug.Log("Te Vi!");
+            other.GetComponent<PlayerBehaviour>().Death();
         }
         else
         {

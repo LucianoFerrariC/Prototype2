@@ -13,6 +13,9 @@ public class EnemyAITutorial : MonoBehaviour
     public float turnSpeed = 360f;
     public LightDetection lightDetection;
 
+    [SerializeField] private Light spotlight;
+    [SerializeField] private CapsuleCollider detectionTrigger;
+
     [SerializeField] private AudioClip droneFlying;
     private AudioSource audioSource;
 
@@ -47,6 +50,20 @@ public class EnemyAITutorial : MonoBehaviour
     private void AttackPlayer()
     {
 
+    }
+    public void GetHit()
+    {
+        StartCoroutine(ShockHit());
+    }
+    private IEnumerator ShockHit()
+    {
+        speed = 0;
+        spotlight.color = Color.green;
+        detectionTrigger.enabled = false;
+        yield return new WaitForSeconds(5f);
+        speed = 4;
+        spotlight.color = Color.yellow;
+        detectionTrigger.enabled = true;
     }
 
     //Sounds
