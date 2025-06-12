@@ -165,6 +165,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3cfc80e4789973847bf1a6b7442ad06e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 4
+  secondsDisabled: 5
+  lightDetection: {fileID: 5413859077426129957}
+  spotlight: {fileID: 505400164769126375}
+  detectionTrigger: {fileID: 3012393058709075454}
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -174,13 +179,9 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  targetPoint: 0
-  speed: 4
-  turnSpeed: 360
-  lightDetection: {fileID: 5413859077426129957}
-  spotlight: {fileID: 505400164769126375}
-  detectionTrigger: {fileID: 3012393058709075454}
-  droneFlying: {fileID: 8300000, guid: 64906cf7975730a4280ba484b99db3bb, type: 3}
+  onPatrolling: {fileID: 8300000, guid: 64906cf7975730a4280ba484b99db3bb, type: 3}
+  onDisabled: {fileID: 8300000, guid: 4e9989737fa99054cb17b91ab7971a35, type: 3}
+  onAttacking: {fileID: 8300000, guid: e17f29cd8389a2e459dfa5553dcffa67, type: 3}
 --- !u!82 &3373323510014834305
 AudioSource:
   m_ObjectHideFlags: 0
@@ -312,7 +313,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6264548147471091973}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 5570a3241b7046d46871f83ae0163c89, type: 2}
   m_CullingMode: 0

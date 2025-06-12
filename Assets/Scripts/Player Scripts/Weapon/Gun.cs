@@ -7,12 +7,15 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] private WeaponData weaponData;
     [SerializeField] private float timeSinceLastShot;
+    [SerializeField] private AudioClip shooting;
 
     public static Action shootHit;
+    private AudioSource audioSource;
 
     private void Awake()
     {
         PlayerBehaviour.shootInput += Shoot;
+        audioSource = GetComponent<AudioSource>();
         weaponData.currentAmmo = weaponData.magSize;
         weaponData.reloading = false;
     }
@@ -36,7 +39,7 @@ public class Gun : MonoBehaviour
                         EnemyAITutorial enemy = hitInfo.transform.GetComponent<EnemyAITutorial>();
                         OnGunShot(enemy);
                     }
-
+                    audioSource.PlayOneShot(shooting);
                     weaponData.currentAmmo--;
                     timeSinceLastShot = 0f;
                     StartCooldown();

@@ -8,11 +8,11 @@ using UnityEngine.SceneManagement;
 public class PlayerBehaviour : MonoBehaviour
 {
     [Header("Movement Variables")]
-    [SerializeField] private float playerSpeed = 5f;
-    [SerializeField] private float turnSpeed = 360f;
-    [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float gravityMultiplier = 3f;
-    [SerializeField] private float velocity;
+    [SerializeField][Range(0f, 10f)] private float playerSpeed;
+    private float turnSpeed = 360f;
+    private float gravity = -9.81f;
+    private float gravityMultiplier = 3f;
+    private float velocity;
 
     [Header("Cameras")]
     [SerializeField] private CinemachineVirtualCamera isometricCam;

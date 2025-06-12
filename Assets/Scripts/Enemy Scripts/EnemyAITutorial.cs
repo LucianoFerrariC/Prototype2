@@ -7,16 +7,24 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class EnemyAITutorial : MonoBehaviour
 {
-    public Transform[] patrolPoints;
-    public int targetPoint;
-    public float speed;
-    public float turnSpeed = 360f;
-    public LightDetection lightDetection;
+    [Header("Variables")]
 
+    [Range(0.0f, 10.0f)] public float speed;
+    [Range(0.0f, 10.0f)] public float secondsDisabled;
+    private float turnSpeed = 360f;
+    private int targetPoint;
+
+    [Header("External Components")]
+    [SerializeField] private LightDetection lightDetection;
     [SerializeField] private Light spotlight;
     [SerializeField] private CapsuleCollider detectionTrigger;
+    public Transform[] patrolPoints;
 
-    [SerializeField] private AudioClip droneFlying;
+    [Header("List of Sounds")]
+    [SerializeField] private AudioClip onPatrolling;
+    [SerializeField] private AudioClip onDisabled;
+    [SerializeField] private AudioClip onAttacking;
+
     private AudioSource audioSource;
 
     private void Start()
@@ -26,10 +34,9 @@ public class EnemyAITutorial : MonoBehaviour
     }
     private void Update()
     {
-        Patroling();
-        if (lightDetection.playerDetected == true)
+        if(patrolPoints.Length != 0)
         {
-            AttackPlayer();
+            Patroling();
         }
     }
     private void Patroling()
@@ -37,6 +44,7 @@ public class EnemyAITutorial : MonoBehaviour
         if (transform.position == patrolPoints[targetPoint].position)
         {
             targetPoint++;
+            audioSource.PlayOneShot(onPatrolling);
             if (targetPoint >= patrolPoints.Length)
             {
                 targetPoint = 0;
@@ -47,29 +55,25 @@ public class EnemyAITutorial : MonoBehaviour
         var rotation = Quaternion.LookRotation(patrolPoints[targetPoint].forward, Vector3.up);
         transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, turnSpeed * Time.deltaTime);
     }
-    private void AttackPlayer()
-    {
-
-    }
     public void GetHit()
     {
         StartCoroutine(ShockHit());
     }
     private IEnumerator ShockHit()
     {
+        audioSource.PlayOneShot(onDisabled);
         speed = 0;
         spotlight.color = Color.green;
         detectionTrigger.enabled = false;
-        yield return new WaitForSeconds(5f);
+        yield return new WaitForSeconds(secondsDisabled);
         speed = 4;
         spotlight.color = Color.yellow;
         detectionTrigger.enabled = true;
     }
 
     //Sounds
-    public void FlyingSound()
+    public void PatrollingSound()
     {
-        audioSource.pitch = Random.Range(0.8f,1f);
-        audioSource.PlayOneShot(droneFlying);
+        audioSource.PlayOneShot(onPatrolling);
     }
 }
