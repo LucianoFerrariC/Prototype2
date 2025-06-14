@@ -67,7 +67,7 @@ public class EnemyAITutorial : MonoBehaviour
         detectionTrigger.enabled = false;
         yield return new WaitForSeconds(secondsDisabled);
         speed = 4;
-        spotlight.color = Color.yellow;
+        spotlight.color = Color.red;
         detectionTrigger.enabled = true;
     }
 

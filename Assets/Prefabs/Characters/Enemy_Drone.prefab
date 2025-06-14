@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2653491646756353289}
-  - component: {fileID: 505400164769126375}
+  - component: {fileID: 1885833391431810268}
   m_Layer: 0
   m_Name: Spot Light
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2770707970437576597}
   m_LocalEulerAnglesHint: {x: 70, y: 0, z: 0}
---- !u!108 &505400164769126375
+--- !u!108 &1885833391431810268
 Light:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,11 +43,11 @@ Light:
   serializedVersion: 10
   m_Type: 0
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 0, a: 1}
-  m_Intensity: 1
-  m_Range: 100
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Intensity: 20
+  m_Range: 30
   m_SpotAngle: 30
-  m_InnerSpotAngle: 1
+  m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
     m_Type: 2
@@ -151,8 +151,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.1618774, y: 0.743505, z: 2.5076694}
-  m_Center: {x: 0.0037215948, y: 0.102497816, z: -0.4292879}
+  m_Size: {x: 3.8, y: 0.7, z: 3.8}
+  m_Center: {x: 0.069983006, y: 0.102497816, z: -0.5138211}
 --- !u!114 &1343332833559514311
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,13 +168,9 @@ MonoBehaviour:
   speed: 4
   secondsDisabled: 5
   lightDetection: {fileID: 5413859077426129957}
-  spotlight: {fileID: 505400164769126375}
+  spotlight: {fileID: 1885833391431810268}
   detectionTrigger: {fileID: 3012393058709075454}
   patrolPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}

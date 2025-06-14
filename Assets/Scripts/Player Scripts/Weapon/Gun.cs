@@ -9,13 +9,18 @@ public class Gun : MonoBehaviour
     [SerializeField] private float timeSinceLastShot;
     [SerializeField] private AudioClip shooting;
 
+    [Header("External Components")]
+    [SerializeField] private GameObject lightning;
+
     public static Action shootHit;
     private AudioSource audioSource;
+    private Transform selfTransform;
 
     private void Awake()
     {
         PlayerBehaviour.shootInput += Shoot;
         audioSource = GetComponent<AudioSource>();
+        selfTransform = GetComponent<Transform>();
         weaponData.currentAmmo = weaponData.magSize;
         weaponData.reloading = false;
     }
@@ -32,13 +37,17 @@ public class Gun : MonoBehaviour
             {
                 if(this != null)
                 {
-                    if (Physics.Raycast(transform.position, transform.forward, out RaycastHit hitInfo, weaponData.maxDistance))
+                    RaycastHit hitInfo;
+
+                    if (Physics.Raycast(transform.position, transform.forward, out hitInfo, weaponData.maxDistance))
                     {
                         Debug.DrawLine(transform.position, transform.forward * hitInfo.distance, Color.yellow);
                         Debug.Log(hitInfo.transform.name);
                         EnemyAITutorial enemy = hitInfo.transform.GetComponent<EnemyAITutorial>();
                         OnGunShot(enemy);
                     }
+                    GameObject instance = Instantiate(lightning, selfTransform);
+                    Destroy(instance, 1f);
                     audioSource.PlayOneShot(shooting);
                     weaponData.currentAmmo--;
                     timeSinceLastShot = 0f;

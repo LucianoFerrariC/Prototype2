@@ -672,7 +672,6 @@ GameObject:
   - component: {fileID: 608774802}
   - component: {fileID: 608774801}
   - component: {fileID: 608774803}
-  - component: {fileID: 608774804}
   - component: {fileID: 608774805}
   m_Layer: 0
   m_Name: Player_Arm
@@ -767,20 +766,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &608774804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 608774799}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5ef1bae39fd788e4f9b489a6a4b49d82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  smooth: 2
-  multiplier: 1
 --- !u!114 &608774805
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -795,6 +780,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: eed658ba7c8564a4bb5740c86a920790, type: 2}
   timeSinceLastShot: 0
+  shooting: {fileID: 8300000, guid: 4a9a46568bb56414a932cd56c928eb46, type: 3}
+  lightning: {fileID: 615475483951271264, guid: fca50433b602c6c45862a8fac199ca6d, type: 3}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1960,7 +1947,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2375204148418032654, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
