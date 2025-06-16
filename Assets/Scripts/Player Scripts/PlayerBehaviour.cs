@@ -37,6 +37,7 @@ public class PlayerBehaviour : MonoBehaviour
         SwitchView();
         IsometricMovement();
         FirstPersonShoot();
+        Interaction();
     }
     private void SwitchView()
     {
@@ -99,7 +100,22 @@ public class PlayerBehaviour : MonoBehaviour
             shootInput?.Invoke();
         }
     }
-
+    private void Interaction()
+    {
+        float interact = allInputManager.Interact();
+        if (interact == 1)
+        {
+            float interactRange = 2f;
+            Collider[] colliderArray = Physics.OverlapSphere(transform.position, interactRange);
+            foreach (Collider collider in colliderArray)
+            {
+                if (collider.TryGetComponent(out ButtonInteract buttonInteract))
+                {
+                    buttonInteract.Interact();
+                }
+            }
+        }
+    }
     public void Death()
     {
         int scene = SceneManager.GetActiveScene().buildIndex;

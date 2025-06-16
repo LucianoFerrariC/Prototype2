@@ -44,6 +44,15 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Interract"",
+                    ""type"": ""Button"",
+                    ""id"": ""eb0fdfff-1db3-40bc-b95d-542aa9e223e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -132,6 +141,28 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": ""Gamepad"",
                     ""action"": ""SwitchView"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d224cfb1-fbca-4805-aa97-db75f44c2f60"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard + Mouse"",
+                    ""action"": ""Interract"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ce0cf001-a008-417c-804c-60b907ba1c2e"",
+                    ""path"": ""<Gamepad>/buttonWest"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Gamepad"",
+                    ""action"": ""Interract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -273,6 +304,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
         m_IsometricView = asset.FindActionMap("Isometric View", throwIfNotFound: true);
         m_IsometricView_Movement = m_IsometricView.FindAction("Movement", throwIfNotFound: true);
         m_IsometricView_SwitchView = m_IsometricView.FindAction("SwitchView", throwIfNotFound: true);
+        m_IsometricView_Interract = m_IsometricView.FindAction("Interract", throwIfNotFound: true);
         // First Person View
         m_FirstPersonView = asset.FindActionMap("First Person View", throwIfNotFound: true);
         m_FirstPersonView_Shoot = m_FirstPersonView.FindAction("Shoot", throwIfNotFound: true);
@@ -341,12 +373,14 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     private List<IIsometricViewActions> m_IsometricViewActionsCallbackInterfaces = new List<IIsometricViewActions>();
     private readonly InputAction m_IsometricView_Movement;
     private readonly InputAction m_IsometricView_SwitchView;
+    private readonly InputAction m_IsometricView_Interract;
     public struct IsometricViewActions
     {
         private @PlayerInputActions m_Wrapper;
         public IsometricViewActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Movement => m_Wrapper.m_IsometricView_Movement;
         public InputAction @SwitchView => m_Wrapper.m_IsometricView_SwitchView;
+        public InputAction @Interract => m_Wrapper.m_IsometricView_Interract;
         public InputActionMap Get() { return m_Wrapper.m_IsometricView; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -362,6 +396,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SwitchView.started += instance.OnSwitchView;
             @SwitchView.performed += instance.OnSwitchView;
             @SwitchView.canceled += instance.OnSwitchView;
+            @Interract.started += instance.OnInterract;
+            @Interract.performed += instance.OnInterract;
+            @Interract.canceled += instance.OnInterract;
         }
 
         private void UnregisterCallbacks(IIsometricViewActions instance)
@@ -372,6 +409,9 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
             @SwitchView.started -= instance.OnSwitchView;
             @SwitchView.performed -= instance.OnSwitchView;
             @SwitchView.canceled -= instance.OnSwitchView;
+            @Interract.started -= instance.OnInterract;
+            @Interract.performed -= instance.OnInterract;
+            @Interract.canceled -= instance.OnInterract;
         }
 
         public void RemoveCallbacks(IIsometricViewActions instance)
@@ -473,6 +513,7 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnSwitchView(InputAction.CallbackContext context);
+        void OnInterract(InputAction.CallbackContext context);
     }
     public interface IFirstPersonViewActions
     {
