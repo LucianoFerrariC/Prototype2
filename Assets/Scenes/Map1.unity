@@ -3273,6 +3273,34 @@ PrefabInstance:
       propertyPath: patrolPoints.Array.data[3]
       value: 
       objectReference: {fileID: 1324243962}
+    - target: {fileID: 1885833391431810268, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
+      propertyPath: m_Range
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1885833391431810268, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
+      propertyPath: m_Intensity
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653491646756353289, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653491646756353289, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 3.22
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653491646756353289, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653491646756353289, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 2653491646756353289, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 90
+      objectReference: {fileID: 0}
     - target: {fileID: 2770707970437576597, guid: 3db8538b8cd41a045bd153b0353ef99d, type: 3}
       propertyPath: m_LocalPosition.x
       value: 33
