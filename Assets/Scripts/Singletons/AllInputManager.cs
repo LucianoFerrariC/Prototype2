@@ -64,7 +64,7 @@ public class AllInputManager : MonoBehaviour
         actions.FirstPersonView.Disable();
         actions.IsometricView.Enable();
     }
-    private void CheckStage()
+    private void CheckStage() //En Desuso
     {
         int currentScene;
         scene = SceneManager.GetActiveScene();

@@ -73,6 +73,7 @@ public class PlayerBehaviour : MonoBehaviour
             hUD.SetActive(false);
         }
     }
+
     private void IsometricMovement()
     {
         Vector2 movement = allInputManager.IsometricMovement();
@@ -107,6 +108,7 @@ public class PlayerBehaviour : MonoBehaviour
 
         controller.Move(move * Time.deltaTime);
     }
+
     private void FirstPersonShoot()
     {
         float shootKey = allInputManager.Shoot();

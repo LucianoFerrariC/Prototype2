@@ -106,7 +106,6 @@ GameObject:
   - component: {fileID: 8341153534281629620}
   - component: {fileID: 1343332833559514311}
   - component: {fileID: 3373323510014834305}
-  - component: {fileID: 1078869608325322448}
   m_Layer: 0
   m_Name: Enemy_Drone
   m_TagString: Enemy
@@ -301,27 +300,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!95 &1078869608325322448
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6264548147471091973}
-  m_Enabled: 0
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 5570a3241b7046d46871f83ae0163c89, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6622418041847934085
 GameObject:
   m_ObjectHideFlags: 0

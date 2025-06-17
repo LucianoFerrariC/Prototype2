@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -11,16 +12,20 @@ public class Gun : MonoBehaviour
 
     [Header("External Components")]
     [SerializeField] private GameObject lightning;
+    [SerializeField] private Material blue;
+    [SerializeField] private Material red;
 
     public static Action shootHit;
     private AudioSource audioSource;
     private Transform selfTransform;
+    private MeshRenderer meshRenderer;
 
-    private void Awake()
+    private void Start()
     {
         PlayerBehaviour.shootInput += Shoot;
         audioSource = GetComponent<AudioSource>();
         selfTransform = GetComponent<Transform>();
+        meshRenderer = GetComponent<MeshRenderer>();
         weaponData.currentAmmo = weaponData.magSize;
         weaponData.reloading = false;
     }
@@ -74,8 +79,10 @@ public class Gun : MonoBehaviour
     {
         Debug.Log("En enfriamiento...");
         weaponData.reloading = true;
+        meshRenderer.material = red;
         yield return new WaitForSeconds(weaponData.reloadTime);
         weaponData.reloading = false;
+        meshRenderer.material = blue;
         Debug.Log("Carga Lista!");
     }
 }

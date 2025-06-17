@@ -122,6 +122,7 @@ MonoBehaviour:
   weaponData: {fileID: 11400000, guid: eed658ba7c8564a4bb5740c86a920790, type: 2}
   timeSinceLastShot: 0
   shooting: {fileID: 8300000, guid: 4a9a46568bb56414a932cd56c928eb46, type: 3}
+  lightning: {fileID: 615475483951271264, guid: fca50433b602c6c45862a8fac199ca6d, type: 3}
 --- !u!82 &8948049675808382244
 AudioSource:
   m_ObjectHideFlags: 0
