@@ -18,9 +18,16 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] private CinemachineVirtualCamera isometricCam;
     [SerializeField] private CinemachineVirtualCamera firstPersonCam;
 
+    [Header("HUD/UI")]
+    [SerializeField] private GameObject hUD;
+
     [Header("Animators")]
     [SerializeField] private Animator animator;
     [SerializeField] private Animator armAnimator;
+
+    [Header("Audios")]
+    [SerializeField] private AudioClip[] footsteps;
+    [SerializeField] private AudioSource audioSource;
 
     private CharacterController controller;
     private AllInputManager allInputManager;
@@ -29,7 +36,7 @@ public class PlayerBehaviour : MonoBehaviour
     private void Start()
     {
         controller = GetComponent<CharacterController>();
-        animator = GetComponent<Animator>();
+        audioSource = GetComponent<AudioSource>();
         allInputManager = AllInputManager.Instance;
     }
     private void Update()
@@ -51,8 +58,8 @@ public class PlayerBehaviour : MonoBehaviour
             allInputManager.IsometricToFirstPersonView();
             isometricCam.Priority = 0;
             firstPersonCam.Priority = 1;
-            animator.Play("Fade Out");
             armAnimator.Play("Fade In");
+            hUD.SetActive(true);
         }
         else if (switchInputFirstPerson == 1)
         {
@@ -62,8 +69,8 @@ public class PlayerBehaviour : MonoBehaviour
             allInputManager.FirstPersonToIsometricView();
             isometricCam.Priority = 1;
             firstPersonCam.Priority = 0;
-            animator.Play("Fade In");
             armAnimator.Play("Fade Out");
+            hUD.SetActive(false);
         }
     }
     private void IsometricMovement()
@@ -79,8 +86,15 @@ public class PlayerBehaviour : MonoBehaviour
             var relative = (transform.position + skewedInput) - transform.position;
             var rotation = Quaternion.LookRotation(relative, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, rotation, turnSpeed * Time.deltaTime);
+            animator.Play("Walking");
         }
+        else
+        {
+            animator.Play("Idle");
+        }
+
         Vector3 move = ((transform.forward * direction.magnitude) * playerSpeed);
+
         if (controller.isGrounded && velocity < 0f)
         {
             velocity = -1f;
@@ -90,6 +104,7 @@ public class PlayerBehaviour : MonoBehaviour
             velocity += gravity * gravityMultiplier * Time.deltaTime;
             move.y = velocity;
         }
+
         controller.Move(move * Time.deltaTime);
     }
     private void FirstPersonShoot()
@@ -120,5 +135,11 @@ public class PlayerBehaviour : MonoBehaviour
     {
         int scene = SceneManager.GetActiveScene().buildIndex;
         SceneManager.LoadScene(scene);
+    }
+
+    public void PlayFootstepSound()
+    {
+        int selectedSound = UnityEngine.Random.Range(0, 3);
+        audioSource.PlayOneShot(footsteps[selectedSound]);
     }
 }
